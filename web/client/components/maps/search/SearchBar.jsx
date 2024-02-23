@@ -43,7 +43,9 @@ export default ({
     const search = defaultSearchWrapper({searchText, searchOptions, maxResults, onSearch, onSearchReset});
     const isSearchFilterEmpty = !searchFilter || (searchFilter.contexts || []).length === 0;
 
-    return (<SearchBarBase className="maps-search">
+    return (
+        <Message msgId="maps.searchButton">{(searchButtonText) => (<Message msgId="queryform.reset">{(resetSearchText) => (
+        <SearchBarBase className="maps-search">
         <FormGroup>
             <div className="input-group">
                 <SearchBarInput
@@ -62,14 +64,16 @@ export default ({
                         bsStyle: "default",
                         pullRight: true,
                         visible: searchText !== "",
-                        onClick: () => onSearchReset()
+                        onClick: () => onSearchReset(),
+                        'aria-label': resetSearchText
                     }, {
                         glyph: searchIcon,
                         className: "square-button-md no-border magnifying-glass clickable",
                         bsStyle: "default",
                         pullRight: true,
                         visible: true,
-                        onClick: () => search()
+                        onClick: () => search(),
+                        'aria-label': searchButtonText
                     }, {
                         glyph: advancedSearchIcon,
                         tooltip: <Message
@@ -100,5 +104,5 @@ export default ({
             onClearAll={onSearchFilterClearAll}
             onSearchFilterChange={onSearchFilterChange}
             onLoadContexts={onLoadContexts}/>
-    </SearchBarBase>);
+    </SearchBarBase>)}</Message>)}</Message>);
 };
